@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Produtos</title>
+  <!-- Bootstrap 5.3 CDN -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+
+  <div class="container my-5">
+    <h1 class="text-center mb-4">Lista de Produtos</h1>
+    <section id="produtos" class="row g-4">
+      <!-- Os cards serão inseridos aqui via JavaScript -->
+    </section>
+  </div>
+
+  <script>
+    const produtos = [
+      { nome: "Mouse", preco: 50 },
+      { nome: "Teclado", preco: 100 },
+    ];
+
+    const section = document.getElementById('produtos');
+
+    produtos.forEach(produto => {
+      const card = document.createElement('div');
+      card.className = 'col-md-4';
+
+      card.innerHTML = `
+        <div class="card h-100 shadow-sm">
+          <div class="card-body">
+            <h3 class="card-title">${produto.nome}</h3>
+            <p class="card-text">Preço: R$ ${produto.preco}</p>
+          </div>
+        </div>
+      `;
+
+      section.appendChild(card);
+    });
+  </script>
+
+</body>
+</html>
