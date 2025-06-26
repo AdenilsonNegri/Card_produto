@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Validação de Formulário</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 40px;
+      background-color: #f8f8f8;
+    }
+
+    form {
+      background: white;
+      padding: 30px;
+      max-width: 400px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+
+    input {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 5px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    .erro {
+      color: red;
+      font-size: 0.9em;
+      margin-bottom: 10px;
+    }
+
+    button {
+      padding: 10px 20px;
+      border: none;
+      background-color: #007bff;
+      color: white;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      opacity: 0.9;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Validação de Formulário</h1>
+
+  <form id="formulario" novalidate>
+    <div>
+      <label for="email">E-mail:</label>
+      <input type="email" id="email" />
+      <div id="erroEmail" class="erro"></div>
+    </div>
+
+    <div>
+      <label for="senha">Senha:</label>
+      <input type="password" id="senha" />
+      <div id="erroSenha" class="erro"></div>
+    </div>
+
+    <button type="submit">Enviar</button>
+  </form>
+
+  <script>
+    const emailInput = document.getElementById('email');
+    const senhaInput = document.getElementById('senha');
+    const erroEmail = document.getElementById('erroEmail');
+    const erroSenha = document.getElementById('erroSenha');
+    const form = document.getElementById('formulario');
+
+    // Valida e-mail
+    function validarEmail() {
+      const valor = emailInput.value;
+      if (!valor.includes('@')) {
+        erroEmail.textContent = 'E-mail inválido (deve conter @)';
+        return false;
+      } else {
+        erroEmail.textContent = '';
+        return true;
+      }
+    }
+
+    // Valida senha
+    function validarSenha() {
+      const valor = senhaInput.value;
+      if (valor.length < 6) {
+        erroSenha.textContent = 'A senha deve ter no mínimo 6 caracteres';
+        return false;
+      } else {
+        erroSenha.textContent = '';
+        return true;
+      }
+    }
+
+    // Eventos de input e blur
+    emailInput.addEventListener('input', validarEmail);
+    emailInput.addEventListener('blur', validarEmail);
+
+    senhaInput.addEventListener('input', validarSenha);
+    senhaInput.addEventListener('blur', validarSenha);
+
+    // Impede envio se tiver erro
+    form.addEventListener('submit', function (e) {
+      const emailValido = validarEmail();
+      const senhaValida = validarSenha();
+
+      if (!emailValido || !senhaValida) {
+        e.preventDefault(); // bloqueia envio do formulário
+      } else {
+        alert('Formulário enviado com sucesso!');
+      }
+    });
+  </script>
+
+</body>
+</html>
